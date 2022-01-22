@@ -3,6 +3,9 @@ import disnake,asyncio
 from disnake import Embed
 from disnake.ext import commands
 from disnake.ext.commands import Context
+
+from .trans import translate
+
 class Normal(commands.Cog,name = "Normal-command"):
     def __init__(self,bot):
         self.bot = bot
@@ -40,5 +43,35 @@ class Normal(commands.Cog,name = "Normal-command"):
                 text = f"invoked by {context.author}"
                 )
         await context.send(embed=embed)
+    @commands.command( 
+            name = "tr",
+            description = "translate my word pal"
+            )
+    async def tr(self,context:Context):
+        try:
+            word= context.message.content.split('!tr')[1] 
+            wtype,syn = translate(word)
+
+            embed = Embed(
+                    title = "word-time",
+                    color = 0x9C84EF
+                    )
+            embed.add_field( 
+                    name = "word",
+                    value = word
+                    )
+            embed.add_field( 
+                    name = "meaning",
+                    value = syn[0]
+                    )
+            embed.set_footer ( 
+                    text = f"invoked by {context.author}"
+                    )
+            await context.send(embed= embed)
+        except Exception as e:
+            print("Something wrong with translation")
+            print(e)
+
+
 def setup(bot):
     bot.add_cog(Normal(bot))
