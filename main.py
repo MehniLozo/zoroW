@@ -1,8 +1,9 @@
 import os,json,asyncio,random,sys
 import disnake
 
-#from cogs.commands import normal
-from cogs.commands import normal
+from cogs.commands import *
+#from cogs.commands import fun
+
 from disnake.ext.commands import Bot
 from disnake.ext import tasks
 
