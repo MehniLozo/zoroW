@@ -15,7 +15,7 @@ class Normal(commands.Cog,name = "Normal-command"):
             )
     async def info(self,context:Context):
         embed = Embed(
-                title = "Info Embed",
+                title = "zoroW info",
                 description = "zoroW your savior from ..",
                 color= 0x9C84EF
                 )
@@ -43,6 +43,57 @@ class Normal(commands.Cog,name = "Normal-command"):
                 text = f"invoked by {context.author}"
                 )
         await context.send(embed=embed)
+    @commands.command(
+                name='sinfo'
+                )
+    async def sinfo(self,context:Context):
+        try:
+ 
+            embed = Embed(
+                    title = "Server info",
+                    description = "interesting infos about the server",
+                    color= 0x9C84EF
+                    )
+            embed.set_thumbnail(
+                url= context.guild.icon.url
+            )
+            embed.add_field( 
+                    name = "Name",
+                    value = context.guild.name)
+            embed.add_field( 
+                    name = "Member Count",
+                    value = context.guild.member_count)
+            embed.add_field( 
+                    name = "CreatedAt",
+                    value = context.guild.created_at)
+            embed.add_field( 
+                    name = "Region",
+                    value = context.guild.region)
+            await context.send(embed=embed)
+        except AttributeError as nt:
+            print(f"Couldn't find icon for {context.guild.name}")
+
+        finally:
+            
+            embed = Embed(
+                    title = "Server info",
+                    description = "interesting infos about the server",
+                    color= 0x9C84EF
+                )
+
+            embed.add_field( 
+                    name = "Name",
+                    value = context.guild.name)
+            embed.add_field( 
+                    name = "Member Count",
+                    value = context.guild.member_count)
+            embed.add_field( 
+                    name = "CreatedAt",
+                    value = context.guild.created_at)
+            embed.add_field( 
+                    name = "Region",
+                    value = context.guild.region)
+            await context.send(embed=embed)
     @commands.command( 
             name = "tr",
             description = "translate my word pal"
