@@ -4,7 +4,7 @@ Your friendly discord savior, helps you win again spammers and eliminate bad peo
 ## Features
 
 ## TODO
-- Meme API implementation
 - Reddit API implementation
 - Moderation commands
-- Slash Commands
+- Audio Service(Youtube)
+- Slash Commands (MAJOR)
