@@ -4,7 +4,14 @@ Your friendly discord savior, helps you win again spammers and eliminate bad peo
 ## Features
 
 ## TODO
+- MongoDB API
+    - Insert Schemas
+        - Guilds (Most importantly the servers invite link tho)
+        - Users
+        - BannedUsers
+        
 - Reddit API implementation
 - Moderation commands
 - Audio Service(Youtube)
 - Slash Commands (MAJOR)
+
