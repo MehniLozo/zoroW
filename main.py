@@ -16,6 +16,7 @@ else:
         file = json.load(jfile)
  
 bot = Bot(command_prefix=file["prefix"])
+bot.strip_after_prefix = True
 @bot.event
 async def on_ready():
     print(f"{bot.user.name} is up and running")
