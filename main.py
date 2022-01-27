@@ -3,6 +3,7 @@ import disnake
 import pymongo
 
 from cogs.commands import *
+from cogs.commands import YTDLSource
 #from cogs.commands import fun
 
 from disnake.ext.commands import Bot
