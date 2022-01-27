@@ -29,6 +29,32 @@ class Fun(commands.Cog,name = "fun-command"):
             print(e)
             print("*****************")
             await context.send("Sorry somthing in the cloud went wrong")
+    @commands.command(
+            name = "guess"
+            )
+    async def guess(self,context:Context):
+        await context.send("Guess a number between 1 and 10")
 
+        def is_correct(m):
+            return m.author == context.author and m.content.isdigit()
+        
+        answer = random.randint(1,10)
+        
+        try:
+            guess = await self.bot.wait_for("message",check=is_correct,timeout=5.0)
+            if int(guess.content) == answer:
+                await context.send("Bravo you got it mrrrr masster")
+            else:
+                await context.send(f"It was actually {answer}")
+        except  asyncio.TimeoutError:
+            await context.send(f"It was {answer}.")
+        except Exception as e:
+            print("*******General Error in guessing*******")
+            print(e)
+
+
+
+
+ 
 def setup(bot):
     bot.add_cog(Fun(bot))
