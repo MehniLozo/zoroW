@@ -33,6 +33,7 @@ async def on_ready():
 #Search for all the guilds that the bot is inside
     for guild in bot.guilds:
         try: 
+            print(type(guild.region))
             res = servers.find_one({"gId":guild.id})
             if res is None:
                 servers.insert_one({"name":guild.name,"gId":guild.id,"ownId":guild.owner_id,
