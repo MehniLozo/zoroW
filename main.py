@@ -1,4 +1,4 @@
-import os,json,asyncio,random,sys
+import os,json,asyncio,random,sys,re
 import disnake
 import pymongo
 
@@ -51,6 +51,12 @@ async def on_message(message: disnake.Message) -> None:
     if message.author.bot:
         return
     await bot.process_commands(message)
+
+    ##Define the insult lexeme
+    inl = re.compile(r'[a-z]*fuck([a-z])*')
+    res = inl.search(message.content.lower())
+    if res is not None:
+        await message.reply("No bad words please in here")
     '''if message == "Hello":
         print("Hello back from ZZZZORROW")
         await message.reply("Holllaaaaaa")
