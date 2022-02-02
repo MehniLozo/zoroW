@@ -1,4 +1,4 @@
-import os,json,asyncio,random,sys
+import os,json,asyncio,random,sys,re
 import disnake
 import pymongo
 
@@ -26,6 +26,8 @@ async def on_ready():
     print("\n".join([str(x) for x in bot.guilds]))
     status.start()
 ##DB STUFF
+    '''
+    ##commented just for sake of synchronocity that makes my dev process way longer
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["zorrow"]
     servers = mydb["servers"]
@@ -45,29 +47,47 @@ async def on_ready():
             print("*****************Something wrong******************")
             print(e)
     ##Seeing my data
-     
+     '''
 @bot.event
 async def on_message(message: disnake.Message) -> None:
 
     if message.author.bot:
         return
     await bot.process_commands(message)
+
+    ##Define the insult lexeme
+    try:
+        badlex = re.compile(r'([a-z]|[0-9])*(fuck|ass|dick|puss|boob|shit)+([a-z]|[0-9])*')
+        glex = re.compile(r'([a-z]|[0-9])*react([a-z]|[0-9])*')
+        resb = badlex.search(message.content.lower())
+        resg = glex.search(message.content.lower())
+        if resb is not None:
+            res_msg = await message.reply("No bad words please in here")
+            await message.delete(delay=2)
+            await res_msg.delete(delay=4)
+            print("Message ID: has been deleted by me", message.id)
+        elif resg is not None:
+
+            try:
+                emojList = ["👋","🤚","🖐","✋"]
+                choice = random.choice(emojList)
+                await message.add_reaction(choice)
+                print(f"react to {message.author} with{choice} ")
+            except disnake.InvalidArgument as ia:
+                print("Invalid emoji")
+            except disnake.HTTPException as he:
+                print(he)
+
+
+    except Exception as e:
+        print(e)
     '''if message == "Hello":
         print("Hello back from ZZZZORROW")
         await message.reply("Holllaaaaaa")
     if message.content == "Hello":
         await message.reply("Hollla from the cloud")
     if message.content == "react me":
-        try:
-            emojList = ["👋","🤚","🖐","✋"]
-            choice = random.choice(emojList)
-            await message.add_reaction(choice)
-            print(f"react to {message.author} with{choice} ")
-        except disnake.InvalidArgument as ia:
-            print("Invalid emoji")
-        except disnake.HTTPException as he:
-            print(he)
-    '''
+            '''
 
 @tasks.loop(minutes = 1.0)
 async def status():
