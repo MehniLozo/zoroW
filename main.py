@@ -25,8 +25,15 @@ async def on_ready():
     print("Honorably member of ")
     print("\n".join([str(x) for x in bot.guilds]))
     status.start()
-##DB STUFF
+
     '''
+    for guild in bot.guilds:
+        print(dir(guild))
+    '''
+
+##DB STUFF
+    
+    """
     ##commented just for sake of synchronocity that makes my dev process way longer
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["zorrow"]
@@ -36,17 +43,19 @@ async def on_ready():
     for guild in bot.guilds:
         try: 
             res = servers.find_one({"gId":guild.id})
+            print(res)
             if res is None:
                 servers.insert_one({"name":guild.name,"gId":guild.id,"ownId":guild.owner_id,
                     "region":guild.region,"created_at":guild.created_at,"member_count":guild.member_count,"icon":guild.icon.url if guild.icon else "none"})
                 print(f"{guild.id} has been inserted ")
             else:
                 print(f"{guild.id} already exists in the DB")
+               
         except Exception as e:
             print("*****************Something wrong******************")
             print(e)
+    """
     ##Seeing my data
-     '''
 @bot.event
 async def on_message(message: disnake.Message) -> None:
 
