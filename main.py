@@ -33,11 +33,13 @@ async def on_ready():
 
 ##DB STUFF
     
-    """
+    
     ##commented just for sake of synchronocity that makes my dev process way longer
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["zorrow"]
     servers = mydb["servers"]
+    xps = mydb["xps"]
+
     #x = servers.delete_many({})
 #Search for all the guilds that the bot is inside
     for guild in bot.guilds:
@@ -49,13 +51,20 @@ async def on_ready():
                 servers.insert_one({"name":guild.name,"gId":guild.id,"ownId":guild.owner_id,
                     "region":guild.region,"created_at":guild.created_at,"member_count":guild.member_count,"icon":guild.icon.url if guild.icon else "none"})
                 print(f"{guild.id} has been inserted ")
+
             else:
                 print(f"{guild.id} already exists in the DB")
-               
+
+            for member in guild.members:
+                if not member.bot and xps.find_one({"gid":guild.id,"mid":member.id}) is None:
+                    new_user = {"gid":guild.id,"mid":member.id,"xp":0,"rank":1,"xp_color":"#ffffff","warnings":0}
+                    xps.insert_one(new_user)
+                    print(f"{member.id} has been added to the DB in {guild.name}:{guild.id}")
+                  
         except Exception as e:
             print("*****************Something wrong******************")
             print(e)
-    """
+    
     ##Seeing my data
 @bot.event
 async def on_message(message: disnake.Message) -> None:
