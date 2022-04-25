@@ -1,2 +1,3 @@
 # dont want to track binary files
 cogs/commands/__pycache__/*
+config.json
