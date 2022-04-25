@@ -14,4 +14,5 @@ Your friendly discord savior, helps you win again spammers and eliminate bad peo
 - Moderation commands
 - Audio Service(Youtube)
 - Slash Commands (MAJOR)
-
+- XP System
+- NLP based responses and processing
